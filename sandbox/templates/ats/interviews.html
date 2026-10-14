@@ -1,0 +1,4 @@
+{% extends "ats/base.html" %}{% block title %}Interviews{% endblock %}{% block body %}
+<h1>Interviews</h1><table><tr><th>ID</th><th>Candidate</th><th>Job</th><th>Round</th><th>When</th><th>Interviewer</th><th>Status</th></tr>
+{% for iv in rows %}{% set c = W.candidates[iv.candidate] %}<tr><td><a href="/interviews/{{ iv.id }}">{{ iv.id }}</a></td><td><a href="/candidates/{{ c.id }}">{{ c.name }}</a></td><td>{{ W.jobs[c.job].title }}</td><td>{{ iv.round }}</td><td>{{ iv.date|day }} {{ iv.time }}</td><td>{{ W.interviewers[iv.interviewer].name }}</td><td>{{ iv.status }}</td></tr>
+{% else %}<tr><td colspan="7" class="muted">No interviews.</td></tr>{% endfor %}</table>{% endblock %}

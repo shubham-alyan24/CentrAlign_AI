@@ -1,0 +1,4 @@
+{% extends "mail/base.html" %}{% block title %}Sent{% endblock %}{% block body %}
+<h1>Sent</h1><table><tr><th>To</th><th>Subject</th><th>Sent at</th></tr>
+{% for m in msgs %}<tr><td>{{ m.to|join(', ') }}</td><td><a href="/sent/{{ m.id }}">{{ m.subject }}</a></td><td>{{ m.date }}</td></tr>
+{% else %}<tr><td colspan="3" class="muted">No sent messages.</td></tr>{% endfor %}</table>{% endblock %}

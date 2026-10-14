@@ -1,0 +1,9 @@
+{% extends "ats/base.html" %}{% block title %}Schedule interview{% endblock %}{% block body %}
+<h1>Schedule interview · {{ c.name }} ({{ job.title }})</h1>
+{% if errors %}<div class="error" role="alert"><b>Could not schedule:</b><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+<form method="post" action="/candidates/{{ c.id }}/schedule" class="card">
+<label for="interviewer">Interviewer</label><select id="interviewer" name="interviewer"><option value="">-- select --</option>{% for i in interviewers %}<option value="{{ i.id }}" {{ 'selected' if form.interviewer==i.id }}>{{ i.name }}</option>{% endfor %}</select>
+<label for="day">Date</label><select id="day" name="day"><option value="">-- select --</option>{% for d in days %}<option value="{{ d }}" {{ 'selected' if form.day==d }}>{{ d|day }}</option>{% endfor %}</select>
+<label for="time">Time (45 min)</label><select id="time" name="time"><option value="">-- select --</option>{% for t in times %}<option {{ 'selected' if form.time==t }}>{{ t }}</option>{% endfor %}</select>
+<label for="round">Round</label><select id="round" name="round"><option>Round 1 - Technical</option><option>Round 2 - Hiring manager</option></select>
+<button type="submit">Book interview</button></form><p class="muted">Tip: check interviewer availability on the <a href="/calendar">Calendars</a> page.</p>{% endblock %}

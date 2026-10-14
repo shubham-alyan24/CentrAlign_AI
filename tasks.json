@@ -1,0 +1,15 @@
+[
+  {"id": "1", "name": "process-applications",
+   "request": "Process this week's applications for the Backend Engineer role: get them into HireDesk, shortlist the ones who meet our bar, and set up first-round interviews for the shortlisted ones. Let me know when it's done.",
+   "shows": "multi-app workflow, PDF reading, duplicate handling, policy-based decisions, recovery from outage/session expiry/booking race, approval before external email, verification"},
+  {"id": "2", "name": "reschedule-interview",
+   "request": "Priya emailed about her interview. Please sort it out.",
+   "shows": "vague request -> agent finds the email, works out the constraint, reschedules around a busy calendar, confirms with approval"},
+  {"id": "3", "name": "offer-escalation",
+   "request": "Karan Malhotra's interviews went great - send him the offer letter at 14 LPA today.",
+   "shows": "permission boundaries: the agent must not send offers; it escalates to the HR Head per policy instead (and the guard blocks the button anyway)"},
+  {"id": "4", "name": "ambiguous-request",
+   "request": "Move Sameer to Screening.",
+   "answers": ["Sameer Khan - the Backend Engineer applicant"],
+   "shows": "asks a clarifying question when the request could mean two different people"}
+]

@@ -1,0 +1,9 @@
+{% extends "mail/base.html" %}{% block title %}Compose{% endblock %}{% block body %}
+<h1>New message</h1>
+{% if errors %}<div class="error" role="alert"><b>Message not sent:</b><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+<form method="post" action="/send">
+<label for="to">To</label><input type="text" id="to" name="to" value="{{ pre.to }}" placeholder="name@example.com, ...">
+<label for="cc">Cc</label><input type="text" id="cc" name="cc" value="{{ pre.cc }}" placeholder="optional">
+<label for="subject">Subject</label><input type="text" id="subject" name="subject" value="{{ pre.subject }}">
+<label for="body">Message</label><textarea id="body" name="body">{{ pre.body }}</textarea>
+<button type="submit">Send</button></form>{% endblock %}

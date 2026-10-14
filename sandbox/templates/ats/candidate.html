@@ -1,0 +1,20 @@
+{% extends "ats/base.html" %}{% block title %}{{ c.name }}{% endblock %}{% block body %}
+<h1>{{ c.id }} · {{ c.name }} <span class="pill">{{ c.stage }}</span></h1>
+{% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+<div class="row"><div class="card">
+<div><b>Job:</b> {{ job.id }} {{ job.title }}</div><div><b>Email:</b> {{ c.email }}</div><div><b>Phone:</b> {{ c.phone }}</div>
+<div><b>Experience:</b> {{ c.years if c.years is not none else 'not recorded' }} years</div>
+<div><b>Notice period:</b> {{ c.notice if c.notice is not none else 'not recorded' }}{{ ' days' if c.notice is not none }}</div>
+<div><b>Skills:</b> {{ c.skills or 'not recorded' }}</div><div><b>Source:</b> {{ c.source }}</div>
+<div><b>Resume:</b> {% if c.resume %}<a href="/candidates/{{ c.id }}/resume">{{ c.resume.split('_',1)[1] }}</a>{% else %}none on file{% endif %}</div>
+<a class="btn" href="/candidates/{{ c.id }}/edit">Edit profile</a></div>
+<div class="card"><h2 style="margin-top:0">Update stage</h2>
+<form method="post" action="/candidates/{{ c.id }}/stage"><label for="stage">New stage</label><select id="stage" name="stage">{% for s in stages %}<option {{ 'selected' if c.stage==s }}>{{ s }}</option>{% endfor %}</select>
+<label for="note">Note / reason</label><textarea id="note" name="note" style="min-height:70px"></textarea><button type="submit">Update stage</button></form></div></div>
+<h2>Interviews</h2><table><tr><th>ID</th><th>Round</th><th>When</th><th>Interviewer</th><th>Status</th></tr>
+{% for iv in ivs %}<tr><td><a href="/interviews/{{ iv.id }}">{{ iv.id }}</a></td><td>{{ iv.round }}</td><td>{{ iv.date|day }} {{ iv.time }}</td><td>{{ W.interviewers[iv.interviewer].name }}</td><td>{{ iv.status }}</td></tr>
+{% else %}<tr><td colspan="5" class="muted">No interviews yet.</td></tr>{% endfor %}</table>
+<a class="btn" href="/candidates/{{ c.id }}/schedule">Schedule interview</a>
+<h2>Activity</h2><table>{% for n in c.notes %}<tr><td class="muted" style="width:160px">{{ n.at }}<br>{{ n.by }}</td><td>{{ n.text }}</td></tr>{% else %}<tr><td class="muted">No activity.</td></tr>{% endfor %}</table>
+<h2>Offer</h2><form method="post" action="/candidates/{{ c.id }}/offer"><span class="muted">HR Head only.</span><br><button type="submit" class="danger">Send offer letter</button></form>
+{% endblock %}

@@ -1,0 +1,43 @@
+{
+  "_comment": "Hard guardrails enforced by the harness (not by the LLM). Company-specific and editable without code changes.",
+  "allowed_origins": [
+    "http://127.0.0.1:8001",
+    "http://127.0.0.1:8002",
+    "http://localhost:8001",
+    "http://localhost:8002"
+  ],
+  "blocked_path_prefixes": [
+    "/__"
+  ],
+  "forbidden_actions": [
+    {
+      "label_regex": "send offer|issue offer",
+      "reason": "Only the HR Head may issue offers (communication-policy.md #4)."
+    }
+  ],
+  "approval_required": [
+    {
+      "origin": "http://127.0.0.1:8001",
+      "label_regex": "^send$",
+      "when_field_regex": {
+        "to|cc": "@(?!acme\\.test\\b)[^,\\s]+"
+      },
+      "reason": "Email to an external address (communication-policy.md #1)."
+    },
+    {
+      "label_regex": "cancel interview|delete|remove",
+      "reason": "Destructive action."
+    }
+  ],
+  "secrets": [
+    "ATS_USERNAME",
+    "ATS_PASSWORD"
+  ],
+  "read_only_allowed_submits": [
+    "^sign in$",
+    "^log in$",
+    "^search$",
+    "^filter$",
+    "^show calendar$"
+  ]
+}

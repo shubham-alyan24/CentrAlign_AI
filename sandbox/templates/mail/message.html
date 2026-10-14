@@ -1,0 +1,6 @@
+{% extends "mail/base.html" %}{% block title %}{{ m.subject }}{% endblock %}{% block body %}
+<h1>{{ m.subject }}</h1><div class="card">
+<div><b>From:</b> {{ m.from_name }} &lt;{{ m['from'] }}&gt;</div><div><b>To:</b> {{ m.to }}</div><div><b>Received:</b> {{ m.date }}</div>
+<hr><pre>{{ m.body }}</pre>
+{% if m.attachments %}<hr><b>Attachments:</b><ul>{% for a in m.attachments %}<li><a href="/attachment/{{ m.id }}/{{ a }}">Download {{ a }}</a></li>{% endfor %}</ul>{% endif %}
+</div><a class="btn" href="/compose?reply_to={{ m.id }}">Reply</a> <a href="/">Back to inbox</a>{% endblock %}

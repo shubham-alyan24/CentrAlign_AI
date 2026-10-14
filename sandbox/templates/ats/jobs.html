@@ -1,0 +1,4 @@
+{% extends "ats/base.html" %}{% block title %}Jobs{% endblock %}{% block body %}
+<h1>Jobs</h1><table><tr><th>ID</th><th>Title</th><th>Team</th><th>Status</th><th>Interview panel</th></tr>
+{% for j in jobs %}<tr><td>{{ j.id }}</td><td>{{ j.title }}</td><td>{{ j.team }}</td><td>{{ j.status }}</td>
+<td>{% for i in j.panel %}{{ W.interviewers[i].name }} ({{ W.interviewers[i].email }}){% if not loop.last %}, {% endif %}{% endfor %}</td></tr>{% endfor %}</table>{% endblock %}

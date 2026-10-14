@@ -1,0 +1,14 @@
+{% extends "ats/base.html" %}{% block title %}{{ 'Edit ' ~ c.name if c else 'Add candidate' }}{% endblock %}{% block body %}
+<h1>{{ 'Edit ' ~ c.id ~ ' ' ~ c.name if c else 'Add candidate' }}</h1>
+{% if errors %}<div class="error" role="alert"><b>Please fix the following:</b><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+<form method="post" enctype="multipart/form-data" action="{{ '/candidates/' ~ c.id ~ '/edit' if c else '/candidates/new' }}" class="card">
+<label for="name">Full name</label><input type="text" id="name" name="name" value="{{ form.name or '' }}">
+<label for="email">Email</label><input type="text" id="email" name="email" value="{{ form.email or '' }}">
+<label for="phone">Phone (+91 98765 43210)</label><input type="text" id="phone" name="phone" value="{{ form.phone or '' }}">
+<label for="job">Job</label><select id="job" name="job"><option value="">-- select job --</option>{% for j in jobs.values() %}<option value="{{ j.id }}" {{ 'selected' if form.job==j.id }}>{{ j.id }} {{ j.title }}</option>{% endfor %}</select>
+<label for="years">Years of professional experience</label><input type="text" id="years" name="years" value="{{ form.years if form.years is not none else '' }}">
+<label for="notice">Notice period (days)</label><input type="text" id="notice" name="notice" value="{{ form.notice if form.notice is not none else '' }}">
+<label for="skills">Key skills (comma separated)</label><input type="text" id="skills" name="skills" value="{{ form.skills or '' }}">
+<label for="source">Source</label><select id="source" name="source">{% for s in ['Email application','Referral','Job board'] %}<option {{ 'selected' if form.source==s }}>{{ s }}</option>{% endfor %}</select>
+<label for="resume">Resume (PDF){% if c and c.resume %} - on file: {{ c.resume.split('_',1)[1] }}{% endif %}</label><input type="file" id="resume" name="resume" accept="application/pdf">
+<br><button type="submit">{{ 'Save changes' if c else 'Add candidate' }}</button></form>{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "ats/base.html" %}{% block title %}Candidates{% endblock %}{% block body %}
+<h1>Candidates</h1><form method="get" action="/candidates" class="card">
+<label for="fq">Search name or email</label><input type="text" id="fq" name="q" value="{{ f.q }}">
+<label for="fjob">Job</label><select id="fjob" name="job"><option value="">All jobs</option>{% for j in jobs.values() %}<option value="{{ j.id }}" {{ 'selected' if f.job==j.id }}>{{ j.id }} {{ j.title }}</option>{% endfor %}</select>
+<label for="fstage">Stage</label><select id="fstage" name="stage"><option value="">All stages</option>{% for s in stages %}<option {{ 'selected' if f.stage==s }}>{{ s }}</option>{% endfor %}</select>
+<button type="submit">Filter</button></form>
+<table><tr><th>ID</th><th>Name</th><th>Email</th><th>Job</th><th>Stage</th></tr>
+{% for c in rows %}<tr><td>{{ c.id }}</td><td><a href="/candidates/{{ c.id }}">{{ c.name }}</a></td><td>{{ c.email }}</td><td>{{ jobs[c.job].title }}</td><td><span class="pill">{{ c.stage }}</span></td></tr>
+{% else %}<tr><td colspan="5" class="muted">No candidates match.</td></tr>{% endfor %}</table>{% endblock %}

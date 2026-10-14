@@ -1,0 +1,17 @@
+# secrets - never commit
+.env
+
+# python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# virtual environments
+.venv/
+venv/
+
+# generated at run time
+runs/
+workspace/
+memory/
+sandbox/_uploads/

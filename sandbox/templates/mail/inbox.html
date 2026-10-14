@@ -1,0 +1,7 @@
+{% extends "mail/base.html" %}{% block title %}Inbox{% endblock %}{% block body %}
+<h1>Inbox</h1>
+<form method="get" action="/"><label for="q">Search mail</label><input type="text" id="q" name="q" value="{{ q }}" placeholder="Search by sender, subject or text"><button type="submit">Search</button></form>
+<br><table><tr><th>From</th><th>Subject</th><th>Received</th><th>Attachments</th></tr>
+{% for m in msgs %}<tr><td>{{ m.from_name }}<br><span class="muted">{{ m['from'] }}</span></td>
+<td><a href="/message/{{ m.id }}">{{ m.subject }}</a></td><td>{{ m.date }}</td><td>{{ m.attachments|length }}</td></tr>
+{% else %}<tr><td colspan="4" class="muted">No messages match.</td></tr>{% endfor %}</table>{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "ats/base.html" %}{% block title %}Dashboard{% endblock %}{% block body %}
+<h1>Dashboard</h1><div class="card">{% for s,n in counts.items() %}<span class="pill">{{ s }}: {{ n }}</span> {% endfor %}</div>
+<div class="row"><div><h2>Open jobs</h2><table><tr><th>Job</th><th>Title</th><th>Candidates</th></tr>
+{% for j in jobs %}<tr><td>{{ j.id }}</td><td>{{ j.title }}</td><td><a href="/candidates?job={{ j.id }}">View candidates</a></td></tr>{% endfor %}</table></div>
+<div><h2>Upcoming interviews</h2><table><tr><th>When</th><th>Candidate</th><th>Interviewer</th></tr>
+{% for iv in upcoming %}<tr><td><a href="/interviews/{{ iv.id }}">{{ iv.date|day }} {{ iv.time }}</a></td><td>{{ W.candidates[iv.candidate].name }}</td><td>{{ W.interviewers[iv.interviewer].name }}</td></tr>
+{% else %}<tr><td colspan="3" class="muted">None</td></tr>{% endfor %}</table></div></div>{% endblock %}

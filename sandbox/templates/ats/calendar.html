@@ -1,0 +1,5 @@
+{% extends "ats/base.html" %}{% block title %}Calendars{% endblock %}{% block body %}
+<h1>Interviewer calendars</h1><form method="get" action="/calendar" class="card"><label for="interviewer">Interviewer</label>
+<select id="interviewer" name="interviewer"><option value="">-- select --</option>{% for i in interviewers %}<option value="{{ i.id }}" {{ 'selected' if sel==i.id }}>{{ i.name }}</option>{% endfor %}</select><button type="submit">Show calendar</button></form>
+{% if grid %}<h2>{{ W.interviewers[sel].name }} - next 5 working days</h2><table class="grid"><tr><th>Date</th>{% for s in grid[0].slots %}<th>{{ s.time }}</th>{% endfor %}</tr>
+{% for row in grid %}<tr><td style="text-align:left">{{ row.day|day }}</td>{% for s in row.slots %}<td class="{{ 'busy' if s.busy else 'free' }}">{{ 'Busy: ' ~ s.busy if s.busy else 'Free' }}</td>{% endfor %}</tr>{% endfor %}</table>{% endif %}{% endblock %}

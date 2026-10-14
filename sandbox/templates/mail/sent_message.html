@@ -1,0 +1,3 @@
+{% extends "mail/base.html" %}{% block title %}{{ m.subject }}{% endblock %}{% block body %}
+<h1>{{ m.subject }}</h1><div class="card"><div><b>To:</b> {{ m.to|join(', ') }}</div>{% if m.cc %}<div><b>Cc:</b> {{ m.cc|join(', ') }}</div>{% endif %}
+<div><b>Sent:</b> {{ m.date }}</div><hr><pre>{{ m.body }}</pre></div><a href="/sent">Back to Sent</a>{% endblock %}

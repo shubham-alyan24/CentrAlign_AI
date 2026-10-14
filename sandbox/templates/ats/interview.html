@@ -1,0 +1,11 @@
+{% extends "ats/base.html" %}{% block title %}Interview {{ iv.id }}{% endblock %}{% block body %}
+{% set c = W.candidates[iv.candidate] %}<h1>Interview {{ iv.id }} <span class="pill">{{ iv.status }}</span></h1>
+{% if errors %}<div class="error" role="alert"><b>Could not reschedule:</b><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+<div class="card"><div><b>Candidate:</b> <a href="/candidates/{{ c.id }}">{{ c.name }}</a> ({{ c.email }})</div><div><b>Job:</b> {{ W.jobs[c.job].title }}</div>
+<div><b>Round:</b> {{ iv.round }}</div><div><b>When:</b> {{ iv.date|day }} at {{ iv.time }} (45 min, IST)</div>
+<div><b>Interviewer:</b> {{ W.interviewers[iv.interviewer].name }} ({{ W.interviewers[iv.interviewer].email }})</div></div>
+{% if iv.status == 'Scheduled' %}<form method="post" action="/interviews/{{ iv.id }}/reschedule" class="card"><h2 style="margin-top:0">Reschedule</h2>
+<label for="rday">New date</label><select id="rday" name="day"><option value="">-- select --</option>{% for d in days %}<option value="{{ d }}">{{ d|day }}</option>{% endfor %}</select>
+<label for="rtime">New time</label><select id="rtime" name="time"><option value="">-- select --</option>{% for t in times %}<option>{{ t }}</option>{% endfor %}</select>
+<label for="reason">Reason</label><input type="text" id="reason" name="reason"><br><button type="submit">Reschedule interview</button></form>
+<form method="post" action="/interviews/{{ iv.id }}/cancel"><button type="submit" class="danger">Cancel interview</button></form>{% endif %}{% endblock %}

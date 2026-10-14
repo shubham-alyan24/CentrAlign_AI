@@ -1,0 +1,5 @@
+<!doctype html><html><head><meta charset="utf-8"><title>{% block title %}HireDesk{% endblock %} · HireDesk</title>
+<link rel="stylesheet" href="/static/style.css"></head><body class="ats">
+<div class="top"><span class="brand">HireDesk</span>{% if user %}<a href="/dashboard">Dashboard</a><a href="/candidates">Candidates</a><a href="/candidates/new">Add candidate</a><a href="/interviews">Interviews</a><a href="/calendar">Calendars</a><a href="/jobs">Jobs</a>
+<span class="who">{{ user }} · <a href="/logout">Sign out</a></span>{% endif %}</div>
+<main style="margin:0 auto">{% if flash %}<div class="flash" role="status">{{ flash }}</div>{% endif %}{% block body %}{% endblock %}</main></body></html>
